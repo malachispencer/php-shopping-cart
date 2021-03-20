@@ -9,6 +9,10 @@
 <body>
   <h1>Products</h1>
 
+  <a href="/cart">View Cart</a>
+  <br>
+  <br>
+
   @foreach($products as $product)
     <div>
       {{ $product->name }}
