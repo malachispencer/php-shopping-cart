@@ -26,4 +26,8 @@ class Cart extends Model
           ->where('id', $product_id)
           ->decrement('in_stock', $quantity_selected);
     }
+
+    protected static function items_count() {
+      return DB::table('cart')->count();
+    }
 }

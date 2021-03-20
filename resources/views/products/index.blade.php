@@ -9,7 +9,7 @@
 <body>
   <h1>Products</h1>
 
-  <a href="/cart">View Cart</a>
+  <a href="/cart" style="text-decoration:none">Cart ({{ $items_in_cart }})</a>
   <br>
   <br>
 
@@ -30,7 +30,7 @@
       </select>
       <input type="hidden" name="product_id" value="<?php echo $product->id ?>">
       <input type="submit" value="Add To Cart">
-      </form>
+    </form>
     <br>
   @endforeach
 </body>
