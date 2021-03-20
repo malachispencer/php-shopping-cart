@@ -21,13 +21,14 @@
       {{ "£{$product->price}" }}
     </div>
     <form action="/cart" method="POST">
-      <select name="quantity">
+      @csrf
+      <select name="quantity_selected">
         @for($i = 1; $i <= $product->in_stock; $i++) {
           <option value="<?php echo $i ?>">{{ $i }}</option>
         }
         @endfor
       </select>
-      <input type="hidden" value="<?php echo $product->id ?>">
+      <input type="hidden" name="product_id" value="<?php echo $product->id ?>">
       <input type="submit" value="Add To Cart">
       </form>
     <br>
