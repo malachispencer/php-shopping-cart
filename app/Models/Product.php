@@ -12,7 +12,9 @@ class Product extends Model
 
     public static function retrieve_all() 
     {
-      $products = DB::table('products')->get();
+      $products = DB::table('products')
+        ->orderBy('id', 'asc')
+        ->get();
       
       return $products;
     }
