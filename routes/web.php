@@ -8,4 +8,4 @@ Route::get('/', [ProductController::class, 'index']);
 
 Route::get('/cart', [CartController::class, 'index']);
 Route::post('/cart', [CartController::class, 'add']);
-Route::patch('/cart',[CartController::class, 'update']);
+Route::patch('/cart',[CartController::class, 'amend']);
