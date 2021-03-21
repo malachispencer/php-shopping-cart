@@ -20,7 +20,12 @@ class CartController extends Controller
   public function index() 
   {
     $cart = Cart::retrieve();
+    $products = $cart['products'];
+    $cartTotal = $cart['total'];
 
-    return view('cart.index', ['cart' => $cart]);
+    return view('cart.index', [
+      'products' => $products,
+      'cartTotal' => $cartTotal
+    ]);
   }
 }
