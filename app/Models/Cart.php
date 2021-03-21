@@ -34,7 +34,8 @@ class Cart extends Model
           'products.id as id', 
           'products.name as name', 
           'products.price as price',
-          'cart.quantity as quantity'
+          'cart.quantity as quantity',
+          'products.in_stock as in_stock'
         )
         ->orderBy('cart.id', 'desc')
         ->get();
