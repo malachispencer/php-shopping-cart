@@ -10,7 +10,8 @@ class Cart extends Model
 {
     use HasFactory;
 
-    public static function add($product_id, $quantity_selected) {
+    public static function add($product_id, $quantity_selected) 
+    {
       if (DB::table('cart')->where('product_id', $product_id)->exists()) {
         DB::table('cart')
           ->where('product_id', $product_id)
@@ -22,12 +23,18 @@ class Cart extends Model
         ]);
       }
 
+      Cart::decrement_product($product_id, $quantity_selected);
+    }
+
+    protected static function items_count() 
+    {
+      return DB::table('cart')->count();
+    }
+
+    private static function decrement_stock($product_id, $quantity_selected)
+    {
       DB::table('products')
           ->where('id', $product_id)
           ->decrement('in_stock', $quantity_selected);
-    }
-
-    protected static function items_count() {
-      return DB::table('cart')->count();
     }
 }
