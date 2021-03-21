@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use App\Models\Product;
 
 class Cart extends Model
 {
@@ -23,7 +24,7 @@ class Cart extends Model
         ]);
       }
 
-      Cart::decrement_stock($product_id, $quantity_selected);
+      Product::decrement_stock($product_id, $quantity_selected);
     }
 
     public static function retrieve() 
@@ -51,16 +52,26 @@ class Cart extends Model
       return $cart;
     }
 
+    public static function amend($product_id, $current_quantity, $new_quantity)
+    {
+      $difference = $current_quantity - $new_quantity;
+     
+      if ($new_quantity == 0) {
+        DB::table('cart')
+          ->where('product_id', $product_id)
+          ->delete();
+      } else {
+        DB::table('cart')
+        ->where('product_id', $product_id)
+        ->update(['quantity' => $new_quantity]);
+      }
+
+      Product::update_stock($product_id, $difference);
+    }
+
     protected static function items_count() 
     {
       return DB::table('cart')->count();
-    }
-
-    private static function decrement_stock($product_id, $quantity_selected)
-    {
-      DB::table('products')
-          ->where('id', $product_id)
-          ->decrement('in_stock', $quantity_selected);
     }
 
     private static function appendSubtotals($products)
