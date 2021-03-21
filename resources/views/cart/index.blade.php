@@ -12,7 +12,7 @@
   <a style="text-decoration: none;" href="/">Products</a>
   <br>
 
-  <h4>You have {{ $itemsInCart }} items in your cart.</h4>
+  <h4>You have {{ $itemsInCart }} <?php echo $itemsInCart === 1 ? 'item' : 'items' ?> in your cart.</h4>
 
   <script>
     let qtyDropDown;
@@ -32,14 +32,16 @@
     <div>
     Subtotal: £{{ $product->subtotal }}
     </div>
-    <form action="/cart" method="PATCH">
+    <form action="/cart" method="POST">
       @csrf
-      <select name="quantity_selected" id="qty-drop-down-<?php echo $product->id ?>">
-        @for($i = 0; $i <= $product->in_stock; $i++) {
+      @method('PATCH')
+      <select name="new_quantity" id="qty-drop-down-<?php echo $product->id ?>">
+        @for($i = 0; $i <= $product->in_stock + $product->quantity; $i++) {
           <option value="<?php echo $i ?>">{{ $i }}</option>
         }
         @endfor
       </select>
+      <input type="hidden" name="current_quantity" value="<?php echo $product->quantity ?>">
       <input type="hidden" name="product_id" value="<?php echo $product->id ?>">
       <input type="submit" value="Edit Qty">
     </form>
@@ -49,7 +51,7 @@
       qtyDropDown = document.getElementById(
         'qty-drop-down-<?php echo $product->id ?>'
       );
-      
+
       productQtyOption = qtyDropDown[<?php echo $product->quantity ?>];
       productQtyOption.selected = true;
     </script>
