@@ -12,7 +12,7 @@
   <a style="text-decoration: none;" href="/">Products</a>
   <br>
 
-  <h4>You have {{ $itemsInCart }} <?php echo $itemsInCart === 1 ? 'item' : 'items' ?> in your cart.</h4>
+  <h4>You have {{ $items_in_cart }} <?php echo $items_in_cart === 1 ? 'item' : 'items' ?> in your cart.</h4>
 
   <script>
     let qtyDropDown;
@@ -57,6 +57,6 @@
     </script>
   @endforeach
 
-  <h4>Total: £{{ $cartTotal }}</h4>
+  <h4>Total: £{{ $cart_total }}</h4>
 </body>
 </html>

@@ -41,12 +41,12 @@ class Cart extends Model
         ->orderBy('cart.id', 'desc')
         ->get();
       
-      $products = Cart::appendSubtotals($products);
-      $cartTotal = Cart::total($products);
+      $products = Cart::append_subtotals($products);
+      $cart_total = Cart::total($products);
 
       $cart = [
         'products' => $products,
-        'total' => $cartTotal
+        'total' => $cart_total
       ];
 
       return $cart;
@@ -74,10 +74,10 @@ class Cart extends Model
       return DB::table('cart')->count();
     }
 
-    private static function appendSubtotals($products)
+    private static function append_subtotals($products)
     {
       return $products->map(function ($product) {
-        $subtotal = Cart::productTotal($product->price, $product->quantity);
+        $subtotal = Cart::product_total($product->price, $product->quantity);
         $product->subtotal = $subtotal;
         return $product;
       });
@@ -85,7 +85,7 @@ class Cart extends Model
       return $products;
     }
 
-    private static function productTotal($price, $quantity)
+    private static function product_total($price, $quantity)
     {
       $subtotal = $price * $quantity;
       $subtotal = number_format($subtotal, 2, '.', ',');
@@ -94,11 +94,11 @@ class Cart extends Model
 
     private static function total($products)
     {
-      $cartTotal = $products->reduce(function ($acc, $product) {
+      $cart_total = $products->reduce(function ($acc, $product) {
         $acc += ($product->price * $product->quantity);
         return $acc;
       }, 0);
 
-      return number_format($cartTotal, 2, '.', ',');
+      return number_format($cart_total, 2, '.', ',');
     }
 }
