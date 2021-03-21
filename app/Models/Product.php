@@ -16,4 +16,18 @@ class Product extends Model
       
       return $products;
     }
+
+    public static function decrement_stock($product_id, $quantity_selected)
+    {
+      DB::table('products')
+          ->where('id', $product_id)
+          ->decrement('in_stock', $quantity_selected);
+    }
+
+    public static function update_stock($product_id, $difference)
+    {
+      DB::table('products')
+        ->where('id', $product_id)
+        ->increment('in_stock', $difference);
+    }
 }
