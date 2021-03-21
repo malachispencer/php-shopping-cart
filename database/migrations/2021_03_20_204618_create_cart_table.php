@@ -17,7 +17,7 @@ class CreateCartTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products');
-            $table->integer('quantity_selected');
+            $table->integer('quantity');
             $table->timestamps();
         });
     }
