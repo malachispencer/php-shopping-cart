@@ -14,6 +14,11 @@
 
   <h4>You have {{ $itemsInCart }} items in your cart.</h4>
 
+  <script>
+    let qtyDropDown;
+    let productQtyOption;
+  </script>
+
   @foreach($products as $product)
     <div>
       Item: {{ $product->name }}
@@ -41,11 +46,12 @@
     <br>
 
     <script>
-      var qtyDropDown = document.getElementById(
+      qtyDropDown = document.getElementById(
         'qty-drop-down-<?php echo $product->id ?>'
       );
       
-      qtyDropDown[<?php echo $product->quantity ?>].selected = true;
+      productQtyOption = qtyDropDown[<?php echo $product->quantity ?>];
+      productQtyOption.selected = true;
     </script>
   @endforeach
 
