@@ -30,4 +30,15 @@ class CartController extends Controller
       'itemsInCart' => $itemsInCart
     ]);
   }
+
+  public function amend()
+  {
+    $product_id = request('product_id');
+    $current_quantity = request('current_quantity');
+    $new_quantity = request('new_quantity');
+
+    Cart::amend($product_id, $current_quantity, $new_quantity);
+
+    return redirect('/cart');
+  }
 }
