@@ -22,10 +22,12 @@ class CartController extends Controller
     $cart = Cart::retrieve();
     $products = $cart['products'];
     $cartTotal = $cart['total'];
+    $itemsInCart = $this->items_in_cart;
 
     return view('cart.index', [
       'products' => $products,
-      'cartTotal' => $cartTotal
+      'cartTotal' => $cartTotal,
+      'itemsInCart' => $itemsInCart
     ]);
   }
 }

@@ -23,7 +23,7 @@ class Cart extends Model
         ]);
       }
 
-      Cart::decrement_product($product_id, $quantity_selected);
+      Cart::decrement_stock($product_id, $quantity_selected);
     }
 
     public static function retrieve() 
